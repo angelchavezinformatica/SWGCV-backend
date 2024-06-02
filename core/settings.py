@@ -30,6 +30,7 @@ THIRD_APPS = [
 
 CUSTOM_APPS = [
     'apps.account',
+    'apps.inventory',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + CUSTOM_APPS

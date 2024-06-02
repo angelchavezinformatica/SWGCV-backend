@@ -3,22 +3,22 @@
 ## product
 
 - id (UNIQUE): **INTEGER** **(PK)**
-- name (UNIQUE): **VARCHAR (50)**
+- name (UNIQUE): **VARCHAR (100)**
 - description: **TEXT**
 - quantity: **INTEGER**
-- id_category: **INTEGER** **(FK)** R: 1 -> 1
-- id_subcategory: **INTEGER** **(FK)** R: 1 -> 1
+- category_id: **INTEGER** **(FK)** R: 1 -> 1
+- subcategory_id: **INTEGER** **(FK)** R: 1 -> 1
 
 ## product_category **(Catálogo)**
 
 - id (UNIQUE): **INTEGER** **(PK)**
-- name (UNIQUE): **VARCHAR (20)**
+- name (UNIQUE): **VARCHAR (100)**
 
 ## product_subcategory **(Catálogo)**
 
 - id (UNIQUE):: **INTEGER** **(PK)**
 - category_id: **INTEGER** **(FK)** R: 1 -> 1
-- name (UNIQUE):: **VARCHAR (20)**
+- name (UNIQUE):: **VARCHAR (100)**
 
 ## product_history
 
@@ -26,5 +26,5 @@
 - datetime: **DATETIME**
 - description: **TEXT**
 - entry: **BOOLEAN**
-- id_produto: **INTEGER** **(FK)** R: 1 -> 1
+- product_id: **INTEGER** **(FK)** R: 1 -> 1
 - quantity: **INTEGER**
