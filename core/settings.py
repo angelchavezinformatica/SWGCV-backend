@@ -25,9 +25,11 @@ DJANGO_APPS = [
 THIRD_APPS = [
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 CUSTOM_APPS = [
+    'apps.account',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + CUSTOM_APPS
