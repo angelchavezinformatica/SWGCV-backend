@@ -1,4 +1,9 @@
+import os
+
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+from django.conf import settings
 from django.utils import timezone
 
 
@@ -13,7 +18,7 @@ class ProductCategory(models.Model):
 class ProductSubcategory(models.Model):
     name = models.CharField(null=False, blank=False,
                             max_length=100, unique=True)
-    category_id = models.ForeignKey(
+    category = models.ForeignKey(
         ProductCategory, on_delete=models.CASCADE, related_name='subcategories')
 
     def __str__(self) -> str:
@@ -25,6 +30,7 @@ class Product(models.Model):
                             max_length=100, unique=True)
     description = models.TextField(null=False, blank=False)
     quantity = models.IntegerField()
+    image = models.ImageField(upload_to='images')
     category = models.ForeignKey(
         ProductCategory, on_delete=models.CASCADE, related_name='products')
     subcategory = models.ForeignKey(
@@ -45,3 +51,13 @@ class ProductHistory(models.Model):
     def __str__(self) -> str:
         entry = 'Entrada' if self.entry else 'Salida'
         return f"{self.product.name} - {str(self.quantity)} ({entry})"
+
+
+@receiver(post_delete, sender=Product)
+def delete_image(sender, instance: Product, **kwars):
+    image = str(instance.image)
+    path_split = image.split('/')
+    path = os.path.join(settings.BASE_DIR, 'media', *path_split)
+
+    if os.path.isfile(path):
+        os.remove(path)

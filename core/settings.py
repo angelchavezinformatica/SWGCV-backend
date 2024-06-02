@@ -112,6 +112,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 STATIC_URL = 'static/'
 
 # Default primary key field type

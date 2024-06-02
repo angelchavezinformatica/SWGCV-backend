@@ -6,6 +6,7 @@
 - name (UNIQUE): **VARCHAR (100)**
 - description: **TEXT**
 - quantity: **INTEGER**
+- image: **VARCHAR (20)**
 - category_id: **INTEGER** **(FK)** R: 1 -> 1
 - subcategory_id: **INTEGER** **(FK)** R: 1 -> 1
 
