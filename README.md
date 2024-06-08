@@ -9,9 +9,17 @@ Backend para Sistema Web de Gestión Comercial para Vivero
 ```
 SECRET_KEY=<your-secret-key>
 DEBUG=True
+SERVER=http://127.0.0.1:8000/
 ```
 
-## Colaboradores
+- Crear las migraciones
 
-- Angel Chávez
-- Félix Sánchez
+```bash
+python manage.py makemigrations
+```
+
+- Hacer las migraciones
+
+```bash
+python manage.py migrate
+```

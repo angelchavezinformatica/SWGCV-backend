@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env('SECRET_KEY')
+SERVER = env('SERVER')
 DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = []
 

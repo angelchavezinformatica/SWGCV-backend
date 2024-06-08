@@ -3,7 +3,9 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from django.http.response import JsonResponse
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
@@ -62,3 +64,11 @@ class Login(APIView):
         token = Token.objects.get_or_create(user=user)[0]
 
         return JsonResponse(data={'token': token.key})
+
+
+class Auth(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request: Request, format=None):
+        return JsonResponse(data={'message': 'success'})

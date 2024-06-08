@@ -30,6 +30,7 @@ class Product(models.Model):
                             max_length=100, unique=True)
     description = models.TextField(null=False, blank=False)
     quantity = models.IntegerField()
+    price = models.FloatField()
     image = models.ImageField(upload_to='images')
     category = models.ForeignKey(
         ProductCategory, on_delete=models.CASCADE, related_name='products')

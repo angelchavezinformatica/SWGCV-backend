@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http.response import JsonResponse
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.request import Request
@@ -12,7 +13,8 @@ def get_products():
         'name': product.name,
         'description': product.description,
         'quantity': product.quantity,
-        'image': f"/media/{product.image.name}",
+        'price': product.price,
+        'image': f"{settings.SERVER}media/{product.image.name}",
         'category': product.category.name,
         'subcategory': product.subcategory.name,
     } for product in Product.objects.all()]
