@@ -10,18 +10,22 @@ Backend para Sistema Web de Gestión Comercial para Vivero
 SECRET_KEY=<your-secret-key>
 DEBUG=True
 SERVER=http://127.0.0.1:8000/
+
+# Database
+
+NAME_DB=<database-name>
+USER=root
+PASSWORD=<your-password>
+HOST=127.0.0.1
+PORT=3306
 ```
 
-- Crear las migraciones
+- Crea la base de datos en MySQL con el nombre que pusiste en `NAME_DB`
+
+- Crea y ejecuta las migraciones
 
 ```bash
-python manage.py makemigrations
-```
-
-- Hacer las migraciones
-
-```bash
-python manage.py migrate
+python manage.py makemigrations & python manage.py migrate
 ```
 
 ## Modelado de datos
