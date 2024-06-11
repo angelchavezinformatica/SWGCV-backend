@@ -5,7 +5,7 @@ from rest_framework.request import Request
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
-from .models import Product, ProductCategory, ProductSubcategory
+from .models import Product, Category, Subcategory
 
 
 def get_products():
@@ -24,9 +24,9 @@ def get_categories():
     return [{
         'category': category.name,
         'subcategories': [str(subcategory)
-            for subcategory in ProductSubcategory.objects.filter(
+            for subcategory in Subcategory.objects.filter(
                 category=category.id)]
-    } for category in ProductCategory.objects.all()]
+    } for category in Category.objects.all()]
 
 
 class InventoryView(APIView):

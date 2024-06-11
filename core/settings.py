@@ -13,6 +13,7 @@ SECRET_KEY = env('SECRET_KEY')
 SERVER = env('SERVER')
 DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'account.User'
 
 DJANGO_APPS = [
     'django.contrib.admin',

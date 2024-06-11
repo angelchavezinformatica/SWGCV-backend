@@ -1,6 +1,5 @@
 from uuid import uuid4
 
-from django.contrib.auth.models import User
 from django.http.response import JsonResponse
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
@@ -9,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
+from .models import User
 from .serializer import UserSerialize
 
 
