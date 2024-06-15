@@ -72,8 +72,32 @@ python manage.py makemigrations & python manage.py migrate
 - id (UNIQUE):: **INTEGER** **PK**
 - id_sale: **INTEGER** **FK**
 - id_product: **INTEGER** **FK**
-- quantity: **INTEGER**
+- quantity: **FLOAT**
 - price: **FLOAT**
 - subtotal: **FLOAT**
+
+### provider
+
+- id (UNIQUE): **INTEGER** **PK**
+- name: **VARCHAR (50)**
+- phone_number: **VARCHAR (9)**
+
+### purchase
+
+- id (UNIQUE): **VARCHAR (36)** **PK**
+- datetime: **DATETIME**
+- id_provider: **VARCHAR (36)** **FK**
+- total: **FLOAT**
+
+### purchase_detail
+
+- id (UNIQUE):: **INTEGER** **PK**
+- id_purchase: **INTEGER** **FK**
+- id_product: **INTEGER** **FK**
+- quantity: **FLOAT**
+- price: **FLOAT**
+- subtotal: **FLOAT**
+
+## Diagrama entidad relación
 
 ![Diagrama entidad relación](./docs/DER.png)

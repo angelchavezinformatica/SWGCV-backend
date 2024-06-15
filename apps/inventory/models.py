@@ -92,7 +92,7 @@ class SaleDetail(models.Model):
         on_delete=models.CASCADE,
         related_name='sale_details'
     )
-    quantity = models.IntegerField()
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
 
