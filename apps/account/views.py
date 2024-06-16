@@ -1,42 +1,39 @@
-from uuid import uuid4
-
 from django.http.response import JsonResponse
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
 from .models import User
-from .serializer import UserSerialize
+from .serializer import RegisterSerialize
 
 
 class Register(APIView):
     """This view will only be used by the client."""
 
     def post(self, request: Request, format=None):
-        request.data['username'] = str(uuid4())
+        user = RegisterSerialize(data=request.data)
 
-        try:
-            User.objects.get(email=request.data['email'])
-            return JsonResponse(data={"errors": ["The email is already in use."]},
-                                status=status.HTTP_400_BAD_REQUEST)
-        except User.DoesNotExist:
-            pass
-
-        serializer = UserSerialize(data=request.data)
-
-        if not serializer.is_valid():
-            return JsonResponse(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        serializer.save()
-
-        user = User.objects.get(username=serializer.data['username'])
-        user.set_password(serializer.data['password'])
+        if not user.is_valid():
+            return Response(data=user.errors, status=status.HTTP_400_BAD_REQUEST)
         user.save()
+        return Response(status=status.HTTP_200_OK)
 
-        return JsonResponse(data={'message': 'Success'}, status=status.HTTP_200_OK)
+
+class Confirm(APIView):
+    def get(self, request: Request, token: str, format=None):
+        try:
+            user = User.objects.get(token=token)
+            user.confirm = True
+            user.token = None
+            user.save()
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(status=status.HTTP_200_OK)
 
 
 class Login(APIView):

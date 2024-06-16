@@ -7,9 +7,16 @@ Backend para Sistema Web de Gestión Comercial para Vivero
 - Crear un archivo `.env` con lo siguiente:
 
 ```
+# Config
+
 SECRET_KEY=<your-secret-key>
 DEBUG=True
+
+# SERVERS
+
 SERVER=http://127.0.0.1:8000/
+ADMIN_SERVER=http://localhost:3000/
+CLIENT_SERVER=http://localhost:3001/
 
 # Database
 
@@ -18,6 +25,14 @@ USER=root
 PASSWORD=<your-password>
 HOST=127.0.0.1
 PORT=3306
+
+# Email
+
+EMAIL_HOST_USER=<your-host-user>
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_PASSWORD=<your-password>
+EMAIL_USE_TLS=True
 ```
 
 - Crea la base de datos en MySQL con el nombre que pusiste en `NAME_DB`
@@ -54,9 +69,10 @@ python manage.py makemigrations & python manage.py migrate
 
 ### client
 
-- id (UNIQUE): **VARCHAR (36)** **PK**
+- id (UNIQUE): **INTEGER** **PK**
 - name: **VARCHAR (50)**
 - last_name: **VARCHAR (50)**
+- password: **VARCHAR (256)**
 - email: **VARCHAR (256)**
 - phone_number: **VARCHAR (9)**
 
@@ -64,7 +80,7 @@ python manage.py makemigrations & python manage.py migrate
 
 - id (UNIQUE):: **INTEGER** **PK**
 - datetime: **DATETIME**
-- id_client: **VARCHAR (36)** **FK**
+- id_client: **INTEGER** **FK**
 - total: **FLOAT**
 
 ### sale_detail
@@ -84,9 +100,9 @@ python manage.py makemigrations & python manage.py migrate
 
 ### purchase
 
-- id (UNIQUE): **VARCHAR (36)** **PK**
+- id (UNIQUE): **INTEGER** **PK**
 - datetime: **DATETIME**
-- id_provider: **VARCHAR (36)** **FK**
+- id_provider: **INTEGER** **FK**
 - total: **FLOAT**
 
 ### purchase_detail

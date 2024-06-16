@@ -11,6 +11,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 SERVER = env('SERVER')
+ADMIN_SERVER = env('ADMIN_SERVER')
+CLIENT_SERVER = env('CLIENT_SERVER')
 DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'account.User'
@@ -34,6 +36,7 @@ CUSTOM_APPS = [
     'apps.account',
     'apps.inventory',
     'apps.provider',
+    'apps.client',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + CUSTOM_APPS
@@ -50,10 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5500",
-    "http://localhost:3000",
-]
+CORS_ALLOWED_ORIGINS = [ADMIN_SERVER, CLIENT_SERVER]
 
 ROOT_URLCONF = 'core.urls'
 
@@ -126,3 +126,12 @@ STATIC_URL = 'static/'
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
