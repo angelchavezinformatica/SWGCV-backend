@@ -11,6 +11,7 @@ Backend para Sistema Web de Gestión Comercial para Vivero
 
 SECRET_KEY=<your-secret-key>
 DEBUG=True
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
 
 # SERVERS
 
