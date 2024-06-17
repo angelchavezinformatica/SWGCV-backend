@@ -1,6 +1,6 @@
 from django.conf import settings
-from django.http.response import JsonResponse
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -37,7 +37,7 @@ class InventoryView(APIView):
         products = get_products()
         categories = get_categories()
 
-        return JsonResponse(data={
+        return Response(data={
             'products': products,
             'categories': categories,
         })

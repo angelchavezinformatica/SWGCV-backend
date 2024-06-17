@@ -1,3 +1,4 @@
+import uuid
 import re
 
 from django.conf import settings
@@ -9,7 +10,7 @@ from .models import User
 
 
 class RegisterSerialize(serializers.Serializer):
-    username = serializers.CharField(max_length=50)
+    first_name = serializers.CharField(max_length=50)
     last_name = serializers.CharField(max_length=50)
     email = serializers.EmailField()
     password = serializers.CharField(max_length=256)
@@ -17,7 +18,8 @@ class RegisterSerialize(serializers.Serializer):
 
     def create(self, validated_data):
         user = User(
-            username=validated_data['username'],
+            username=str(uuid.uuid4()),
+            first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             email=validated_data['email'],
             phone_number=validated_data['phone_number'],

@@ -1,4 +1,3 @@
-from django.http.response import JsonResponse
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
@@ -43,8 +42,8 @@ class Login(APIView):
     """
 
     def post(self, request: Request, format=None):
-        username = request.data.get('username')
-        email = request.data.get('username', '')
+        username = request.data.get('username', None)
+        email = request.data.get('email', '')
         password = request.data.get('password', '')
 
         try:
@@ -53,14 +52,14 @@ class Login(APIView):
             else:
                 user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return JsonResponse(data={}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={'error': 'User not found'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not user.is_superuser or not user.check_password(password):
-            return JsonResponse(data={}, status=status.HTTP_400_BAD_REQUEST)
+        if not user.check_password(password):
+            return Response(data={'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
         token = Token.objects.get_or_create(user=user)[0]
 
-        return JsonResponse(data={'token': token.key})
+        return Response(data={'token': token.key})
 
 
 class Auth(APIView):
@@ -68,4 +67,4 @@ class Auth(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request: Request, format=None):
-        return JsonResponse(data={'message': 'success'})
+        return Response(data={'message': 'success'})
