@@ -17,7 +17,7 @@ def get_products():
     return [{
         'name': product.name,
         'description': product.description,
-        'quantity': product.quantity,
+        'stock': product.stock,
         'price': product.price,
         'image': f"{settings.SERVER}media/{product.image.name}",
         'category': product.category.name,
