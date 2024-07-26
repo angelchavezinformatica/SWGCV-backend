@@ -13,7 +13,7 @@ from .models import Product, Category, Subcategory
 from .serializers import InventorySerializer
 
 
-def get_products():
+def parse_products(products):
     return [{
         'name': product.name,
         'description': product.description,
@@ -22,7 +22,7 @@ def get_products():
         'image': f"{settings.SERVER}media/{product.image.name}",
         'category': product.category.name,
         'subcategory': product.subcategory.name,
-    } for product in Product.objects.all()]
+    } for product in products]
 
 
 def get_categories():
@@ -34,12 +34,19 @@ def get_categories():
     } for category in Category.objects.all()]
 
 
+class InventoryClientView(APIView):
+    LIMIT = 9
+
+    def get(self, request: Request, format=None):
+        return Response(data=parse_products(Product.objects.all()[:self.LIMIT]))
+
+
 class InventoryView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request: Request, format=None):
-        products = get_products()
+        products = parse_products(Product.objects.all())
         categories = get_categories()
 
         return Response(data={
